@@ -1,2 +1,2 @@
 # Dimensionchain-Explorer
-Dim-G's blockchain browser
+Dimension-G's blockchain browser
