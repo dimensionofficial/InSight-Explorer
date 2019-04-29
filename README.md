@@ -1,2 +1,3 @@
-# Dim-Explorer
-Dimension blockchain browser
+# Dimension Explorer - InSight
+Dimension blockchain explorer
+http://insight.dimensionchain.io
