@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.mat-card {
+  height: calc(100% - 48px);
+}
+
+.mat-card-title .mat-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}

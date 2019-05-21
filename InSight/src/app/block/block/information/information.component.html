@@ -1,0 +1,51 @@
+<div *ngIf="block; else loading" style="margin:10px;">
+  <mat-card>
+    <mat-card-content class="table-container">
+      <table>
+        <tr>
+          <td>{{ 'Block Number' | translate }}:</td>
+          <td>{{block.block_num}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Block Producer' | translate }}:</td>
+          <td>
+            <a [routerLink]="['/producers',block.producer]">{{block.producer}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'Timestamp' | translate }}:</td>
+          <td>{{block.timestamp | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Block ID' | translate }}:</td>
+          <td>{{block.id}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Previous Block ID' | translate }}:</td>
+          <td>
+            <span *ngIf="block.block_num <= 1">{{block.previous}}</span>
+            <a [routerLink]="['/blocks',block.block_num-1]" *ngIf="block.block_num > 1">{{block.previous}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'Transaction Merkle Root' | translate }}:</td>
+          <td>{{block.transaction_mroot}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Action Merkle Root' | translate }}:</td>
+          <td>{{block.action_mroot}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Number of Transactions' | translate }}:</td>
+          <td>{{block.transactions.length}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="block.transactions.length" style="margin-top:20px;">
+    <app-block-transactions [block]="block"></app-block-transactions>
+  </div>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>

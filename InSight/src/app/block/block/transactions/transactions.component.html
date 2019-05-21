@@ -1,0 +1,44 @@
+<app-table [dataSource]="block.transactions" [title]="'Transactions' | translate" [enablePager]="false">
+  <table mat-table [dataSource]="block.transactions">
+    <tr mat-header-row *matHeaderRowDef="transactionsColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: transactionsColumns;"></tr>
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Index' | translate }}</th>
+      <td mat-cell *matCellDef="let i = index">
+        {{i + 1}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Transaction ID' | translate }}</th>
+      <td mat-cell *matCellDef="let transaction">
+        <a [routerLink]="['/transactions',block.block_num,transaction.trx.id||transaction.trx]">
+          <id-64 [id]="transaction.trx.id || transaction.trx"></id-64>
+        </a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Status' | translate }}</th>
+      <td mat-cell *matCellDef="let transaction">
+        {{transaction.status}}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="cpu">
+      <th mat-header-cell *matHeaderCellDef>{{ 'CPU Usage' | translate }}</th>
+      <td mat-cell *matCellDef="let transaction">
+        {{transaction.cpu_usage_us | number }} µs
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="net">
+      <th mat-header-cell *matHeaderCellDef>{{ 'NET Usage' | translate }}</th>
+      <td mat-cell *matCellDef="let transaction">
+        {{transaction.net_usage_words | toKB | number:'1.0-3'}} KB
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
+      <td mat-cell *matCellDef="let transaction">
+        {{transaction.trx.transaction?.actions.length || 0}}
+      </td>
+    </ng-container>
+  </table>
+</app-table>

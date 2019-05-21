@@ -1,0 +1,52 @@
+<div *ngIf="transaction; else loading" style="margin:10px;">
+  <mat-card>
+    <mat-card-content class="table-container">
+      <table>
+        <tr>
+          <td>{{ 'Transaction ID' | translate }}:</td>
+          <td>{{transaction.id}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Block Number' | translate }}:</td>
+          <td>
+            <a [routerLink]="['/blocks',transaction.block_num]">{{transaction.block_num}}</a>
+          </td>
+        </tr>
+        <tr>
+          <td>{{ 'Timestamp' | translate }}:</td>
+          <td>{{transaction.block_time | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Irreversible' | translate }}:</td>
+          <td>{{transaction.last_irreversible_block > transaction.block_num}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Pending' | translate }}:</td>
+          <td>{{transaction.trx.trx?.delay_sec > 0}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'Status' | translate }}:</td>
+          <td>{{transaction.trx.receipt.status}}</td>
+        </tr>
+        <tr>
+          <td>{{ 'CPU Usage' | translate }}:</td>
+          <td>{{transaction.trx.receipt.cpu_usage_us | number }} µs</td>
+        </tr>
+        <tr>
+          <td>{{ 'NET Usage' | translate }}:</td>
+          <td>{{transaction.trx.receipt.net_usage_words | toKB | number:'1.0-3'}} KB</td>
+        </tr>
+        <tr>
+          <td>{{ 'Number of Actions' | translate }}:</td>
+          <td>{{transaction.trx.trx?.actions?.length || 0}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+  <div *ngIf="transaction.trx.trx?.actions?.length" style="margin-top:20px;">
+    <app-transaction-actions [transaction]="transaction"></app-transaction-actions>
+  </div>
+</div>
+<ng-template #loading>
+  <app-spinner></app-spinner>
+</ng-template>
